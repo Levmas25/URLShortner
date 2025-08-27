@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="{% static 'shortnerWeb/css/main.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔗 URL Shortener</h1>
+            <p>Transform your long URLs into short, shareable links</p>
+        </div>
+
+        <form class="url-form" id="shortenForm">
+            {% csrf_token %}
+            <div class="input-group">
+                <input 
+                    type="url" 
+                    class="url-input" 
+                    id="originalUrl" 
+                    placeholder="Enter your long URL here..." 
+                    required
+                >
+                <button type="submit" class="shorten-btn" id="shortenBtn">
+                    Shorten URL
+                </button>
+            </div>
+            
+            <div class="expiry-group">
+                <label for="daysAlive" class="expiry-label">Link expires in:</label>
+                <select id="daysAlive" class="expiry-select">
+                    <option value="1">1 day</option>
+                    <option value="7" selected>7 days</option>
+                    <option value="15">15 days</option>
+                    <option value="30">30 days</option>
+                </select>
+            </div>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Shortening your URL...</p>
+        </div>
+
+        <div class="result" id="result">
+            <h3 id="resultTitle">✅ URL Shortened Successfully!</h3>
+            <div class="result-item">
+                <div class="result-label">Short URL:</div>
+                <div class="url-container">
+                    <span class="result-value" id="shortUrl"></span>
+                </div>
+                <div class="button-group">
+                    <button class="open-btn" onclick="openUrl('shortUrl')">Open</button>
+                    <button class="copy-btn" onclick="copyToClipboard('shortUrl')">Copy</button>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Original URL:</div>
+                <div class="url-container">
+                    <span class="result-value" id="originalUrlResult"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'shortnerWeb/js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+POST http://127.0.0.1:8000/api/shorten/
+Content-Type: application/json
+
+{
+    "original_url": "https://ya.ru"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/shorten/
+Content-Type: application/json
+
+{
+    "original_url": "https://stackoverflow.com/questions/66378833/retrieveapiview-django-rest-framework-return-custom-response-when-lookup-field",
+    "days_alive": 2
+
+}
