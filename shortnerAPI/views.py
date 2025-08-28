@@ -1,11 +1,17 @@
+import logging
+
 from django.shortcuts import redirect
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.utils.timezone import datetime
 
 from .models import ShortedURL
 from .serializers import ShortedURLSerializer
+
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 class URLShortnerAPIView(CreateAPIView):
@@ -24,6 +30,7 @@ class GetLongURLAPIView(RetrieveAPIView):
     serializer_class = ShortedURLSerializer
     lookup_url_kwarg = 'shorted_url'
     lookup_field = 'shorted_url'
+    
 
     def retrieve(self, request, *args, **kwargs):
         instance: ShortedURL = self.get_object()

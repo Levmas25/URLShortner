@@ -1,8 +1,9 @@
 import string
 
+
 BASE62_ALPHABET = string.digits + string.ascii_letters
 DIGIT_TO_LETTER_BASE62_DICTIONARY = { num: letter for num, letter in enumerate(BASE62_ALPHABET) }
-OFFSET = 10**5
+OFFSET = 10**7
 
 
 def convert_to_base62(num: int) -> str:

@@ -134,3 +134,32 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ),
 }
+
+# Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "file_formatter": {
+            "format": "{levelname} {asctime} {pathname} {funcName} {message}",
+            "style": "{"
+        }
+    },
+    "handlers": {
+        # Saves DDEBUG level loggings into debug.log file
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+            "level": "DEBUG",
+            "formatter": "file_formatter"
+        }
+    },
+    "loggers": {
+        "": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True
+        },
+     
+    }
+}

@@ -54,12 +54,35 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             const data = await response.json();
+            console.log('API Response:', data); // Debug log
             
             if (response.ok) {
                 // Success
                 document.getElementById('resultTitle').textContent = '✅ URL Shortened Successfully!';
                 document.getElementById('shortUrl').textContent = data.shorted_url;
                 document.getElementById('originalUrlResult').textContent = data.original_url;
+                
+                // Display QR code if available
+                const qrImage = document.getElementById('qrCodeImage');
+                
+                console.log('QR element found:', qrImage !== null); // Debug log
+                console.log('QR Code data:', data.qr_code); // Debug log
+                
+                if (data.qr_code) {
+                    console.log('Setting QR code image...'); // Debug log
+                    qrImage.src = data.qr_code;
+                    qrImage.style.display = 'block';
+                    console.log('QR image src set to:', qrImage.src.substring(0, 50) + '...'); // Debug log
+                } else {
+                    console.log('No QR code data received'); // Debug log
+                    qrImage.style.display = 'none';
+                }
+                
+                // Show all result items on success
+                const resultItems = result.querySelectorAll('.result-item');
+                resultItems.forEach(item => {
+                    item.style.display = 'block';
+                });
                 
                 result.classList.add('show');
                 result.classList.remove('error');
@@ -68,10 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('resultTitle').textContent = '❌ Error';
                 document.getElementById('shortUrl').textContent = data.error || 'An error occurred';
                 
+                // Hide QR code on error
+                document.getElementById('qrCodeImage').style.display = 'none';
+                
                 // Hide other result items for error state
                 const resultItems = result.querySelectorAll('.result-item');
                 resultItems.forEach((item, index) => {
-                    item.style.display = index === 0 ? 'flex' : 'none';
+                    if (index === 0) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 });
                 
                 result.classList.add('show', 'error');

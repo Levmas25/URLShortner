@@ -176,6 +176,22 @@ body {
     gap: 8px;
 }
 
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-code {
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+}
+
 .copy-btn {
     padding: 5px 10px;
     background: #667eea;
