@@ -13,3 +13,6 @@ class ShortedURL(models.Model):
     expiration_date = models.DateField(null=True, blank=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True, blank=True, related_name='urls')
     click_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.original_url} -> {self.shorted_url}'

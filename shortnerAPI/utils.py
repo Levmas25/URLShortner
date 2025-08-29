@@ -1,5 +1,5 @@
 import string
-
+import logging
 
 BASE62_ALPHABET = string.digits + string.ascii_letters
 DIGIT_TO_LETTER_BASE62_DICTIONARY = { num: letter for num, letter in enumerate(BASE62_ALPHABET) }

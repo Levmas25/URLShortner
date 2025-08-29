@@ -1,14 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.utils import timezone
 from datetime import timedelta
 
 import qrcode
 import io
 import base64
+import logging
 
 from .models import ShortedURL
 from .utils import convert_to_base62
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -81,6 +84,8 @@ class ShortedURLSerializer(serializers.ModelSerializer):
         img_str = base64.b64encode(buffer.getvalue()).decode()
         
         result = f"data:image/png;base64,{img_str}"
+
+        logger.debug(f'Generated qr code {result}')
         
         return result
     
@@ -111,4 +116,6 @@ class ShortedURLSerializer(serializers.ModelSerializer):
         shorted_instance.expiration_date = expiration_date
 
         shorted_instance.save(update_fields=('shorted_url', 'expiration_date'))
+        logger.debug(f'Generated object {shorted_instance}')
+
         return shorted_instance
