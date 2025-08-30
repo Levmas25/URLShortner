@@ -3,7 +3,6 @@ import time
 
 from django.shortcuts import redirect
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpRequest
 from rest_framework import status
@@ -60,7 +59,7 @@ class GetLongURLAPIView(RetrieveAPIView):
         return redirect(instance.original_url)
     
     def get(self, request: HttpRequest, *args, **kwargs):
-        logger.dedbug(f'{request.method} {request.path} {request.GET}')
+        logger.debug(f'{request.method} {request.path} {request.GET}')
         try:
             start = time.time()
             response = super().get(request, *args, **kwargs)
